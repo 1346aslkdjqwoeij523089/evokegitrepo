@@ -16,12 +16,12 @@ export function createKazagumo(client: any) {
         [
             {
                 name: "main",
-                url: `${process.env.LAVALINK_HOST}:${process.env.LAVALINK_PORT}`,
-                auth: process.env.LAVALINK_PASSWORD!,
+                url: "localhost:2333",
+                auth: "youshallnotpass",
                 secure: false,
             },
         ]
     );
 
-    console.log("Lavalink connected");
+    console.log("Lavalink system initialized (waiting for node)");
 }
