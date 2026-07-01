@@ -1,9 +1,9 @@
 import { Kazagumo } from "kazagumo";
 import { Connectors } from "shoukaku";
 
-export let kazagumo: Kazagumo;
+export let kazagumo;
 
-export function createKazagumo(client: any) {
+export function createKazagumo(client) {
     kazagumo = new Kazagumo(
         {
             defaultSearchEngine: "youtube",
@@ -16,21 +16,25 @@ export function createKazagumo(client: any) {
         [
             {
                 name: "main",
-                url: "lava-v4.darrennathanael.com:80",
+                url: "http://127.0.0.1:2333", // ✅ LOCAL LAVALINK (NO PUBLIC NODES)
                 auth: "youshallnotpass",
                 secure: false,
             },
         ]
     );
 
-    // 🧯 PREVENT CRASH
+    // 🧯 SAFE ERROR HANDLING (PREVENT CRASHES)
     kazagumo.shoukaku.on("error", (name, error) => {
-        console.log("Lavalink error:", name, error.message);
+        console.log("[Lavalink Error]", name, error?.message || error);
     });
 
     kazagumo.shoukaku.on("close", (name, code, reason) => {
-        console.log("Lavalink closed:", name, code, reason?.toString());
+        console.log("[Lavalink Closed]", name, code, reason?.toString());
     });
 
-    console.log("Kazagumo initialized");
+    kazagumo.shoukaku.on("ready", (name) => {
+        console.log("[Lavalink Ready]", name);
+    });
+
+    console.log("Kazagumo initialized (waiting for Lavalink)");
 }
