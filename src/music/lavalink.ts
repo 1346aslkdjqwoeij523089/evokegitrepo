@@ -16,12 +16,21 @@ export function createKazagumo(client: any) {
         [
             {
                 name: "main",
-                url: "localhost:2333",
+                url: "lava-v4.darrennathanael.com:80",
                 auth: "youshallnotpass",
                 secure: false,
             },
         ]
     );
 
-    console.log("Lavalink system initialized (waiting for node)");
+    // 🧯 PREVENT CRASH
+    kazagumo.shoukaku.on("error", (name, error) => {
+        console.log("Lavalink error:", name, error.message);
+    });
+
+    kazagumo.shoukaku.on("close", (name, code, reason) => {
+        console.log("Lavalink closed:", name, code, reason?.toString());
+    });
+
+    console.log("Kazagumo initialized");
 }
